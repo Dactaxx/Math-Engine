@@ -29,15 +29,15 @@ public class GraphingCalculator extends GraphicsThread implements KeyListener {
 	@Override
 	public void render(Graphics2D g2d) {
 		g2d.setColor(new Color(255, 255, 255));
-		g2d.fillRect(0, 0, 1920, 1080);
+		g2d.fillRect(0, 0, (int)(1920 * graphics.scale), (int)(1080 * graphics.scale));
 
 		g2d.setColor(new Color(200, 200, 200));
 		drawGrid(g2d);
 		
 		g2d.setColor(new Color(0, 0, 0));
 		g2d.setStroke(new BasicStroke(2));
-		g2d.drawLine((int)(960 + xOffset),  0,  (int)(960 + xOffset),1080);
-		g2d.drawLine(0, (int)(540 + yOffset), 1920, (int)(540 + yOffset));
+		g2d.drawLine((int)((960 + xOffset) * graphics.scale),  0,  (int)((960 + xOffset) * graphics.scale),1080);
+		g2d.drawLine(0, (int)((540 + yOffset) * graphics.scale), 1920, (int)((540 + yOffset) * graphics.scale));
 		
 		g2d.setStroke(new BasicStroke(5));
 		graph(g2d);
@@ -48,7 +48,7 @@ public class GraphingCalculator extends GraphicsThread implements KeyListener {
 
 	private void drawGrid(Graphics2D g2d) {
 		for(int i = 20; i < 1080; i += 40) {
-			g2d.drawLine((int)(0), i + yOffset >= 0 ? Math.abs((int)(i + yOffset) % 1080) : 1080 - Math.abs((int)(i + yOffset) % 1080), (int)(1920), i + yOffset >= 0 ? Math.abs((int)(i + yOffset) % 1080) : 1080 - Math.abs((int)(i + yOffset) % 1080));
+			g2d.drawLine((int)(0), (int)((i + yOffset >= 0 ? Math.abs((i + yOffset) % 1080) : 1080 - Math.abs((i + yOffset) % 1080)) * graphics.scale), (int)(1920), (int)((i + yOffset >= 0 ? Math.abs((i + yOffset) % 1080) : 1080 - Math.abs((i + yOffset) % 1080)) * graphics.scale));
 		}
 		
 		for(int i = 0; i < 1920; i += 40) {
@@ -96,6 +96,7 @@ public class GraphingCalculator extends GraphicsThread implements KeyListener {
 		else if(cursorBlink > 2 * blinkRate) cursorBlink = 0;
 		
 		int cursorPos = g2d.getFontMetrics().stringWidth("y = " + function) + 17;
+		g2d.setStroke(new BasicStroke(2));
 		g2d.drawLine((int)(cursorPos * graphics.scale), (int)(55 * graphics.scale), (int)(cursorPos * graphics.scale), (int)(80 * graphics.scale));
 		
 	}

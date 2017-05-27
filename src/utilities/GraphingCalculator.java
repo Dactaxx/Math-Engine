@@ -104,8 +104,9 @@ public class GraphingCalculator extends GraphicsThread implements KeyListener {
 	@Override
 	public void tick() {
 		if(MathEngine.mouseDown) {
-			xOffset += MathEngine.dragEventX * .5;
-			yOffset += MathEngine.dragEventY * .5;
+			xOffset = MathEngine.dragEventX;
+			yOffset = MathEngine.dragEventY;
+
 			
 		}
 			
